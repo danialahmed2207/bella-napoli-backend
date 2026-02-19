@@ -24,6 +24,11 @@ def register(benutzer: schemas.BenutzerCreate, db: Session = Depends(database.ge
     if db_user:
         raise HTTPException(status_code=400, detail="Username schon vergeben")
     
+    # Prüfen ob E-Mail schon existiert
+    db_email = db.query(models.Benutzer).filter(models.Benutzer.email == benutzer.email).first()
+    if db_email:
+        raise HTTPException(status_code=400, detail="E-Mail schon vergeben")
+    
     # Passwort hashen
     hashed_pw = auth.hash_password(benutzer.password)
     
