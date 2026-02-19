@@ -45,3 +45,9 @@ uvicorn main:app --reload
 ### Tag 3 (19.02.2026)
 - CRUD Endpunkte für Produkte
 - Response models vergessen -> nachgeholt
+
+### Tag 4 (20.02.2026)
+- Login-System mit JWT
+- Passwort-Hashing mit bcrypt
+- Register/Login Endpunkte
+- E-Mail Prüfung vergessen -> nachgeholt
