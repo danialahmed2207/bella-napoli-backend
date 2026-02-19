@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 import database
 import models
 import schemas
+import auth
 
 app = FastAPI(title="Bella Napoli API")
 
@@ -13,6 +14,40 @@ models.Base.metadata.create_all(bind=database.engine)
 @app.get("/")
 def root():
     return {"message": "Willkommen bei Bella Napoli!"}
+
+
+# Benutzer registrieren
+@app.post("/register", response_model=schemas.Benutzer)
+def register(benutzer: schemas.BenutzerCreate, db: Session = Depends(database.get_db)):
+    # Prüfen ob Username schon existiert
+    db_user = db.query(models.Benutzer).filter(models.Benutzer.username == benutzer.username).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="Username schon vergeben")
+    
+    # Passwort hashen
+    hashed_pw = auth.hash_password(benutzer.password)
+    
+    # Neuen Benutzer erstellen
+    db_benutzer = models.Benutzer(
+        username=benutzer.username,
+        email=benutzer.email,
+        password_hash=hashed_pw
+    )
+    db.add(db_benutzer)
+    db.commit()
+    db.refresh(db_benutzer)
+    return db_benutzer
+
+
+# Login
+@app.post("/login")
+def login(login_data: schemas.LoginRequest, db: Session = Depends(database.get_db)):
+    user = auth.authenticate_user(db, login_data.username, login_data.password)
+    if not user:
+        raise HTTPException(status_code=401, detail="Falscher Username oder Passwort")
+    
+    access_token = auth.create_access_token(data={"sub": user.username})
+    return {"access_token": access_token, "token_type": "bearer"}
 
 
 # Alle Produkte anzeigen
