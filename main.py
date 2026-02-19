@@ -16,14 +16,14 @@ def root():
 
 
 # Alle Produkte anzeigen
-@app.get("/produkte")
+@app.get("/produkte", response_model=list[schemas.Produkt])
 def get_produkte(db: Session = Depends(database.get_db)):
     produkte = db.query(models.Produkt).all()
     return produkte
 
 
 # Einzelnes Produkt anzeigen
-@app.get("/produkte/{produkt_id}")
+@app.get("/produkte/{produkt_id}", response_model=schemas.Produkt)
 def get_produkt(produkt_id: int, db: Session = Depends(database.get_db)):
     produkt = db.query(models.Produkt).filter(models.Produkt.id == produkt_id).first()
     if not produkt:
@@ -32,7 +32,7 @@ def get_produkt(produkt_id: int, db: Session = Depends(database.get_db)):
 
 
 # Neues Produkt erstellen
-@app.post("/produkte")
+@app.post("/produkte", response_model=schemas.Produkt)
 def create_produkt(produkt: schemas.ProduktCreate, db: Session = Depends(database.get_db)):
     db_produkt = models.Produkt(**produkt.dict())
     db.add(db_produkt)
@@ -42,7 +42,7 @@ def create_produkt(produkt: schemas.ProduktCreate, db: Session = Depends(databas
 
 
 # Produkt aktualisieren
-@app.put("/produkte/{produkt_id}")
+@app.put("/produkte/{produkt_id}", response_model=schemas.Produkt)
 def update_produkt(produkt_id: int, produkt: schemas.ProduktCreate, db: Session = Depends(database.get_db)):
     db_produkt = db.query(models.Produkt).filter(models.Produkt.id == produkt_id).first()
     if not db_produkt:
