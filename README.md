@@ -36,4 +36,12 @@ uvicorn main:app --reload
 - Projekt initialisiert
 - README erstellt
 - requirements.txt erstellt
-- Git-Anleitungen für Teammitglieder hinzugefügt
+
+### Tag 2 (18.02.2026)
+- Datenbank erstellt
+- Modelle für Produkte und Benutzer
+- Schemas mit Pydantic
+
+### Tag 3 (19.02.2026)
+- CRUD Endpunkte für Produkte
+- Response models vergessen -> nachgeholt
