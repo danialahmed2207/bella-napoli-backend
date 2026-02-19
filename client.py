@@ -1,5 +1,4 @@
 import requests
-import json
 
 BASE_URL = "http://localhost:8000"
 
@@ -11,9 +10,10 @@ def main():
         print("1. Alle Produkte anzeigen")
         print("2. Einzelnes Produkt anzeigen")
         print("3. Neues Produkt erstellen")
-        print("4. Produkt löschen")
-        print("5. Login")
-        print("6. Register")
+        print("4. Produkt aktualisieren")
+        print("5. Produkt löschen")
+        print("6. Login")
+        print("7. Register")
         print("0. Beenden")
         
         choice = input("\nWahl: ")
@@ -25,10 +25,12 @@ def main():
         elif choice == "3":
             create_product()
         elif choice == "4":
-            delete_product()
+            update_product()
         elif choice == "5":
-            login()
+            delete_product()
         elif choice == "6":
+            login()
+        elif choice == "7":
             register()
         elif choice == "0":
             break
@@ -99,6 +101,32 @@ def delete_product():
         response = requests.delete(f"{BASE_URL}/produkte/{product_id}")
         if response.status_code == 200:
             print("Produkt gelöscht!\n")
+        else:
+            print(f"Fehler: {response.status_code}\n")
+    except Exception as e:
+        print(f"Fehler: {e}\n")
+
+
+def update_product():
+    try:
+        print("\nProdukt aktualisieren:")
+        product_id = input("Produkt-ID: ")
+        name = input("Neuer Name: ")
+        beschreibung = input("Neue Beschreibung: ")
+        preis = float(input("Neuer Preis: "))
+        kategorie = input("Neue Kategorie: ")
+        
+        data = {
+            "name": name,
+            "beschreibung": beschreibung,
+            "preis": preis,
+            "kategorie": kategorie,
+            "verfuegbar": True
+        }
+        
+        response = requests.put(f"{BASE_URL}/produkte/{product_id}", json=data)
+        if response.status_code == 200:
+            print("Produkt aktualisiert!\n")
         else:
             print(f"Fehler: {response.status_code}\n")
     except Exception as e:
