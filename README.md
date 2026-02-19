@@ -51,3 +51,14 @@ uvicorn main:app --reload
 - Passwort-Hashing mit bcrypt
 - Register/Login Endpunkte
 - E-Mail Prüfung vergessen -> nachgeholt
+
+### Tag 5 (21.02.2026)
+- Python Client-Skript erstellt
+- Menü zum Testen der API
+- Update-Funktion vergessen -> nachgeholt
+
+## Woche 1 Zusammenfassung
+- ✅ CRUD-API für Produkte
+- ✅ SQLite Datenbank
+- ✅ Login-System mit JWT
+- ✅ Python Client zum Testen
