@@ -32,7 +32,7 @@ uvicorn main:app --reload
 
 ## Tagesdokumentation
 
-### Tag 1 (19.02.2026)
+### Tag 1 (17.02.2026)
 - Projekt initialisiert
 - README erstellt
 - requirements.txt erstellt
