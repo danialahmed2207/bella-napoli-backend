@@ -77,6 +77,10 @@ uvicorn main:app --reload
 - Model, Schema und Endpunkte
 - API-Doku vergessen zu aktualisieren -> nachgeholt
 
+### Tag 8 (26.02.2026)
+- Client um Bestellungen erweitert
+- Doppelte Konvertierung gefixt
+
 ## Tests ausführen
 
 ```bash
