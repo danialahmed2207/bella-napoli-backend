@@ -14,6 +14,8 @@ def main():
         print("5. Produkt löschen")
         print("6. Login")
         print("7. Register")
+        print("8. Bestellung aufgeben")
+        print("9. Alle Bestellungen anzeigen")
         print("0. Beenden")
         
         choice = input("\nWahl: ")
@@ -32,6 +34,10 @@ def main():
             login()
         elif choice == "7":
             register()
+        elif choice == "8":
+            create_order()
+        elif choice == "9":
+            get_all_orders()
         elif choice == "0":
             break
         else:
@@ -171,6 +177,43 @@ def register():
         response = requests.post(f"{BASE_URL}/register", json=data)
         if response.status_code == 200:
             print("Registrierung erfolgreich!\n")
+        else:
+            print(f"Fehler: {response.status_code}\n")
+    except Exception as e:
+        print(f"Fehler: {e}\n")
+
+
+def create_order():
+    try:
+        print("\nNeue Bestellung:")
+        benutzer_id = input("Benutzer-ID: ")
+        produkt_id = input("Produkt-ID: ")
+        anzahl = int(input("Anzahl: "))
+        
+        data = {
+            "produkt_id": int(produkt_id),
+            "anzahl": anzahl
+        }
+        
+        response = requests.post(f"{BASE_URL}/bestellungen?benutzer_id={benutzer_id}", json=data)
+        if response.status_code == 200:
+            result = response.json()
+            print(f"Bestellung erstellt! Gesamtpreis: {result['gesamtpreis']}€\n")
+        else:
+            print(f"Fehler: {response.status_code}\n")
+    except Exception as e:
+        print(f"Fehler: {e}\n")
+
+
+def get_all_orders():
+    try:
+        response = requests.get(f"{BASE_URL}/bestellungen")
+        if response.status_code == 200:
+            orders = response.json()
+            print("\n--- Bestellungen ---")
+            for o in orders:
+                print(f"Bestellung {o['id']}: Produkt {o['produkt_id']}, {o['anzahl']}x, {o['gesamtpreis']}€, Status: {o['status']}")
+            print()
         else:
             print(f"Fehler: {response.status_code}\n")
     except Exception as e:
