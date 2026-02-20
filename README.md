@@ -62,3 +62,15 @@ uvicorn main:app --reload
 - ✅ SQLite Datenbank
 - ✅ Login-System mit JWT
 - ✅ Python Client zum Testen
+
+## Woche 2
+
+### Tag 6 (24.02.2026)
+- Tests mit pytest hinzugefügt
+- pytest vergessen in requirements -> nachgeholt
+
+## Tests ausführen
+
+```bash
+pytest test_api.py -v
+```
