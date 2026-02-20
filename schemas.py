@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 
 
 # Produkt-Schemas
@@ -44,3 +45,24 @@ class Benutzer(BenutzerBase):
 class LoginRequest(BaseModel):
     username: str
     password: str
+
+
+# Bestellung-Schemas
+class BestellungBase(BaseModel):
+    produkt_id: int
+    anzahl: int = 1
+
+
+class BestellungCreate(BestellungBase):
+    pass
+
+
+class Bestellung(BestellungBase):
+    id: int
+    benutzer_id: int
+    gesamtpreis: float
+    status: str
+    erstellt_am: datetime
+    
+    class Config:
+        from_attributes = True

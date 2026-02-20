@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean
+from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, DateTime
 from database import Base
+from datetime import datetime
 
 
 class Produkt(Base):
@@ -21,3 +22,15 @@ class Benutzer(Base):
     email = Column(String, unique=True, index=True)
     password_hash = Column(String)
     ist_admin = Column(Boolean, default=False)
+
+
+class Bestellung(Base):
+    __tablename__ = "bestellungen"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    benutzer_id = Column(Integer, ForeignKey("benutzer.id"))
+    produkt_id = Column(Integer, ForeignKey("produkte.id"))
+    anzahl = Column(Integer, default=1)
+    gesamtpreis = Column(Float)
+    status = Column(String, default="offen")  # offen, in_zubereitung, fertig, geliefert
+    erstellt_am = Column(DateTime, default=datetime.utcnow)
