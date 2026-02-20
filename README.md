@@ -17,6 +17,9 @@ Dieses Projekt ist ein Backend für eine Pizzeria. Es verwaltet Produkte (Pizzen
 | POST | /produkte | Neues Produkt erstellen |
 | PUT | /produkte/{id} | Produkt aktualisieren |
 | DELETE | /produkte/{id} | Produkt löschen |
+| POST | /bestellungen | Neue Bestellung erstellen |
+| GET | /bestellungen | Alle Bestellungen anzeigen |
+| PUT | /bestellungen/{id} | Bestellstatus aktualisieren |
 
 ## Installation
 
@@ -68,6 +71,11 @@ uvicorn main:app --reload
 ### Tag 6 (24.02.2026)
 - Tests mit pytest hinzugefügt
 - pytest vergessen in requirements -> nachgeholt
+
+### Tag 7 (25.02.2026)
+- Bestellungen-System hinzugefügt
+- Model, Schema und Endpunkte
+- API-Doku vergessen zu aktualisieren -> nachgeholt
 
 ## Tests ausführen
 
