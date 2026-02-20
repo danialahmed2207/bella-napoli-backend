@@ -44,8 +44,9 @@ def get_all_products():
         if response.status_code == 200:
             products = response.json()
             print("\n--- Produkte ---")
-            for p in products:
-                print(f"{p['id']}: {p['name']} - {p['preis']}€")
+            for produkt in products:
+                print(f"{produkt['id']}: {produkt['name']} - {produkt['preis']}€")
+                
             print()
         else:
             print(f"Fehler: {response.status_code}\n")
