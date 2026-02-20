@@ -187,11 +187,11 @@ def create_order():
     try:
         print("\nNeue Bestellung:")
         benutzer_id = input("Benutzer-ID: ")
-        produkt_id = input("Produkt-ID: ")
+        produkt_id = int(input("Produkt-ID: "))
         anzahl = int(input("Anzahl: "))
         
         data = {
-            "produkt_id": int(produkt_id),
+            "produkt_id": produkt_id,
             "anzahl": anzahl
         }
         
