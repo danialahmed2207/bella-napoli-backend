@@ -106,3 +106,45 @@ def delete_produkt(produkt_id: int, db: Session = Depends(database.get_db)):
     db.delete(db_produkt)
     db.commit()
     return {"message": "Produkt gelöscht"}
+
+
+# Bestellung erstellen
+@app.post("/bestellungen", response_model=schemas.Bestellung)
+def create_bestellung(bestellung: schemas.BestellungCreate, benutzer_id: int, db: Session = Depends(database.get_db)):
+    # Produkt finden für Preis
+    produkt = db.query(models.Produkt).filter(models.Produkt.id == bestellung.produkt_id).first()
+    if not produkt:
+        raise HTTPException(status_code=404, detail="Produkt nicht gefunden")
+    
+    gesamtpreis = produkt.preis * bestellung.anzahl
+    
+    db_bestellung = models.Bestellung(
+        benutzer_id=benutzer_id,
+        produkt_id=bestellung.produkt_id,
+        anzahl=bestellung.anzahl,
+        gesamtpreis=gesamtpreis
+    )
+    db.add(db_bestellung)
+    db.commit()
+    db.refresh(db_bestellung)
+    return db_bestellung
+
+
+# Alle Bestellungen anzeigen
+@app.get("/bestellungen", response_model=list[schemas.Bestellung])
+def get_bestellungen(db: Session = Depends(database.get_db)):
+    bestellungen = db.query(models.Bestellung).all()
+    return bestellungen
+
+
+# Bestellung aktualisieren (Status ändern)
+@app.put("/bestellungen/{bestellung_id}", response_model=schemas.Bestellung)
+def update_bestellung(bestellung_id: int, status: str, db: Session = Depends(database.get_db)):
+    db_bestellung = db.query(models.Bestellung).filter(models.Bestellung.id == bestellung_id).first()
+    if not db_bestellung:
+        raise HTTPException(status_code=404, detail="Bestellung nicht gefunden")
+    
+    db_bestellung.status = status
+    db.commit()
+    db.refresh(db_bestellung)
+    return db_bestellung
