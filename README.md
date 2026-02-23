@@ -82,6 +82,7 @@ uvicorn main:app --reload
 - Doppelte Konvertierung gefixt
 
 ### Tag 9 (23.02.2926)
+- Neue Optionen und Funktionen hinzufügen ?
 
 
 ## Tests ausführen
