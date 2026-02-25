@@ -33,6 +33,12 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+## Demo-Daten laden
+
+```bash
+python seed.py
+```
+
 ## Tagesdokumentation
 
 ### Tag 1 (17.02.2026)
@@ -85,6 +91,17 @@ uvicorn main:app --reload
 - Bestellstatus ändern im Client hinzugefügt
 - Menü Option 10 funktioniert jetzt
 - Datum korrigiert
+
+### Tag 10 (28.02.2026)
+- Demo-Daten Skript erstellt (seed.py)
+- Finale Tests durchgeführt
+- README vervollständigt
+
+## Woche 2 Zusammenfassung
+- ✅ Tests mit pytest
+- ✅ Bestellungen-System komplett
+- ✅ Client mit allen Funktionen
+- ✅ Demo-Daten für Präsentation
 
 ## Tests ausführen
 
