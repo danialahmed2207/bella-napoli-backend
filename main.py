@@ -105,7 +105,7 @@ def delete_produkt(produkt_id: int, db: Session = Depends(database.get_db)):
     
     db.delete(db_produkt)
     db.commit()
-    return {"message": "Produkt gelöscht"}
+    return {"message": f"Produkt {produkt_id} wurde erfolgreich entfernt"}
 
 
 # Bestellung erstellen

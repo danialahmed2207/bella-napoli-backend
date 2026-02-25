@@ -81,10 +81,10 @@ uvicorn main:app --reload
 - Client um Bestellungen erweitert
 - Doppelte Konvertierung gefixt
 
-### Tag 9 (26.02.2026)
+### Tag 9 (27.02.2026)
 - Bestellstatus ändern im Client hinzugefügt
 - Menü Option 10 funktioniert jetzt
-- Kleinere Tippfehler gefixt
+- Datum korrigiert
 
 ## Tests ausführen
 
