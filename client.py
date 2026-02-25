@@ -16,6 +16,7 @@ def main():
         print("7. Register")
         print("8. Bestellung aufgeben")
         print("9. Alle Bestellungen anzeigen")
+        print("10. Bestellstatus ändern")
         print("0. Beenden")
         
         choice = input("\nWahl: ")
@@ -38,6 +39,8 @@ def main():
             create_order()
         elif choice == "9":
             get_all_orders()
+        elif choice == "10":
+            update_order_status()
         elif choice == "0":
             break
         else:
@@ -214,6 +217,22 @@ def get_all_orders():
             for o in orders:
                 print(f"Bestellung {o['id']}: Produkt {o['produkt_id']}, {o['anzahl']}x, {o['gesamtpreis']}€, Status: {o['status']}")
             print()
+        else:
+            print(f"Fehler: {response.status_code}\n")
+    except Exception as e:
+        print(f"Fehler: {e}\n")
+
+
+def update_order_status():
+    try:
+        print("\nBestellstatus ändern:")
+        bestellung_id = input("Bestellung-ID: ")
+        print("Mögliche Status: offen, in_zubereitung, fertig, geliefert")
+        neuer_status = input("Neuer Status: ")
+        
+        response = requests.put(f"{BASE_URL}/bestellungen/{bestellung_id}?status={neuer_status}")
+        if response.status_code == 200:
+            print("Status aktualisiert!\n")
         else:
             print(f"Fehler: {response.status_code}\n")
     except Exception as e:
